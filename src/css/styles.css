@@ -22,6 +22,8 @@ body {
 .country-flag {
    margin-right: 10px;
    max-height: 46px;
+   border: 1px rgb(195, 195, 195) solid;
+   display: block;
 }
 
 .country-title {
