@@ -12,14 +12,9 @@ import getRefs from './getRefs';
 const DEBOUNCE_DELAY = 300;
 const refs = getRefs();
 
-function onInputEvent(e) {
-   let countryName = removeSpacesFromInput(e.target.value);
-
-   if (countryName === '') {
-      return resetMarkup();
-   } else {
-      return renderUI(countryName);
-   }
+function resetMarkup() {
+   refs.countryContainerEl.innerHTML = '';
+   refs.countriesListEl.innerHTML = '';
 }
 
 function renderUI(countryName) {
@@ -48,13 +43,18 @@ function renderUI(countryName) {
       });
 }
 
-function resetMarkup() {
-   refs.countryContainerEl.innerHTML = '';
-   refs.countriesListEl.innerHTML = '';
-}
-
 function removeSpacesFromInput(value) {
    return value.trim();
+}
+
+function onInputEvent(e) {
+   let countryName = removeSpacesFromInput(e.target.value);
+
+   if (countryName === '') {
+      return resetMarkup();
+   } else {
+      return renderUI(countryName);
+   }
 }
 
 refs.searchInputEl.addEventListener(
