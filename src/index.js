@@ -32,7 +32,6 @@ searchInputEl.addEventListener(
 );
 
 function renderTemplate(country) {
-   // let template = '';
    template = `<h1 class='country-title'>
             <img class='country-flag' src='${
                country.flags.png
