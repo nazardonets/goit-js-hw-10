@@ -19,13 +19,30 @@ body {
    margin-bottom: 16px;
 }
 
+.country-flag {
+   margin-right: 10px;
+   max-height: 46px;
+}
+
 .country-title {
+   margin: 0 0 10px 0;
+   padding: 0;
+   display: flex;
+   align-items: center;
+}
+
+.country-info__item:not(:last-child) {
+   margin-bottom: 10px;
+}
+
+.country-info__list,
+.country-list {
+   list-style: none;
    margin: 0;
    padding: 0;
 }
 
-.country-info__list {
-   list-style: none;
-   margin: 0;
-   padding: 0;
+.cointry-list__item {
+   display: flex;
+   align-items: center;
 }
