@@ -2,15 +2,15 @@ import './css/styles.css';
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import 'notiflix/dist/notiflix-3.2.5.min.css';
-import countryDetailsTmp from './templates/countryDetails.hbs';
-import countriesListTmp from './templates/countriesList.hbs';
-import { fetchCountriesByName } from './api-service.js';
+import { fetchCountriesByName } from './fetchCountries.js';
+import {
+   createCountryDetailsMarkup,
+   createCountriesListMarkup,
+} from './createMarkup';
+import getRefs from './getRefs';
 
 const DEBOUNCE_DELAY = 300;
-
-const searchInputEl = document.querySelector('#search-box');
-const countryContainerEl = document.querySelector('.country');
-const countriesListEl = document.querySelector('.country-list');
+const refs = getRefs();
 
 function onInputEvent(e) {
    let countryName = removeSpacesFromInput(e.target.value);
@@ -40,45 +40,24 @@ function renderUI(countryName) {
          }
       })
       .catch(() => {
+         resetMarkup();
+
          return Notify.failure(
             `Oops, there is no country with name "${countryName}"`
          );
-         resetMarkup();
       });
 }
 
-function createCountryDetailsMarkup(countryName) {
-   let template = countryDetailsTmp(countryName);
-
-   return (countryContainerEl.innerHTML = template);
-}
-
-function createCountriesListMarkup(countries) {
-   let markup = '';
-   let iteration = 1;
-
-   countries.forEach(country => {
-      if (iteration > 5) {
-         return;
-      }
-
-      iteration += 1;
-      return (markup += countriesListTmp(country));
-   });
-
-   return (countriesListEl.innerHTML = markup);
-}
-
 function resetMarkup() {
-   countryContainerEl.innerHTML = '';
-   countriesListEl.innerHTML = '';
+   refs.countryContainerEl.innerHTML = '';
+   refs.countriesListEl.innerHTML = '';
 }
 
 function removeSpacesFromInput(value) {
    return value.trim();
 }
 
-searchInputEl.addEventListener(
+refs.searchInputEl.addEventListener(
    'input',
    debounce(e => onInputEvent(e), DEBOUNCE_DELAY)
 );
